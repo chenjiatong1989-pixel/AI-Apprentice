@@ -6,13 +6,14 @@ AI-Apprentice is a local-first framework for building personal AI agents that im
 
 Most AI projects try to ship a bigger brain. AI-Apprentice ships a learning loop:
 
-1. Try the task.
-2. Notice what it cannot do well.
-3. Find a teacher, tool, model, document, or example.
-4. Compare answers and verify the result.
-5. Extract the reusable skill.
-6. Store the skill in memory.
-7. Use it better next time.
+1. Question the assumed route.
+2. Try the task.
+3. Notice what it cannot do well.
+4. Find a teacher, tool, model, document, or example.
+5. Search for counterexamples and verify the result.
+6. Extract the reusable skill.
+7. Store it as a replaceable rule.
+8. Use it better next time.
 
 The goal is not an AI that claims to know everything. The goal is an AI that knows how to learn.
 
@@ -33,14 +34,14 @@ Think of it as an apprentice that watches, practices, writes notes, and slowly b
 
 ```mermaid
 flowchart TD
-    A[Task] --> B[Try]
-    B --> C{Good enough?}
-    C -- Yes --> D[Answer]
-    C -- No --> E[Find teacher]
-    E --> F[Compare and verify]
-    F --> G[Extract skill]
-    G --> H[Remember]
-    H --> B
+    A[Task] --> B[Question assumptions]
+    B --> C[Try shortest valid path]
+    C --> D{Good enough?}
+    D -- Yes --> E[Complete]
+    D -- No --> F[Find teacher]
+    F --> G[Challenge and verify]
+    G --> H[Remember replaceable skill]
+    H --> C
 ```
 
 ## What Is In This Repo
@@ -90,9 +91,9 @@ This demo does not call a paid API yet. It is deliberately offline so the learni
 - Offline learning-loop prototype
 - Skill memory format
 - Teacher adapters for local models and API models
-- Verification strategies
-- Skill review and pruning
-- Personal agent runtime
+- Assumption challenger and counterexample verification
+- Skill review, replacement, rollback, and pruning
+- Shortcut search and personal agent runtime
 - Browser, file, and voice/vision observation modules
 
 See [docs/roadmap.md](docs/roadmap.md).
@@ -101,11 +102,18 @@ See [docs/roadmap.md](docs/roadmap.md).
 
 AI-Apprentice is built around a few beliefs:
 
-- A personal AI should learn from use, not reset every conversation.
-- Specialist models are teachers, not final destinations.
+- Goal over process: identify the real outcome before inheriting a route.
+- Every process is a temporary solution, not a permanent law.
+- Every learned rule must be testable, replaceable, and reversible.
+- Specialist models are teachers, not authorities or final destinations.
+- Verification includes actively searching for counterexamples.
+- Facts, inference, and uncertainty should remain distinguishable.
 - Local memory matters because personal improvement should belong to the user.
-- Verification matters because copying an answer is not the same as learning.
 - Small reusable skills beat one giant vague prompt.
+
+> Intelligence is not doing more work. It is shortening the distance to the goal.
+
+AI-Apprentice does not only learn. It questions what it learned and replaces it when a better verified path appears.
 
 ## Contributing
 
