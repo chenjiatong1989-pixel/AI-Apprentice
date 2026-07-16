@@ -1,5 +1,19 @@
 """AI-Apprentice learning loop primitives."""
 
-from .apprentice import Apprentice, Skill, SkillMemory, Teacher
+from .apprentice import (
+    Apprentice,
+    AssumptionChallenger,
+    Skill,
+    SkillMemory,
+    Teacher,
+    Verifier,
+)
 
-__all__ = ["Apprentice", "Skill", "SkillMemory", "Teacher"]
+__all__ = [
+    "Apprentice",
+    "AssumptionChallenger",
+    "Skill",
+    "SkillMemory",
+    "Teacher",
+    "Verifier",
+]
