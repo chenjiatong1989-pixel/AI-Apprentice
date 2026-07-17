@@ -1,133 +1,115 @@
 # AI-Apprentice
 
-> Don’t build an AI that knows everything. Build one that never stops learning.
+> Don’t build an AI that knows everything. Build one that learns from reality.
 
-AI-Apprentice is a local-first framework for building personal AI agents that improve by learning from specialist models, tools, and real-world feedback.
+AI-Apprentice is a local-first framework for personal AI agents that improve through use. It does not treat an answer as learning. Learning happens only when a prediction meets evidence and changes memory.
 
-Most AI projects try to ship a bigger brain. AI-Apprentice ships a learning loop:
-
-1. Question the assumed route.
-2. Try the task.
-3. Notice what it cannot do well.
-4. Find a teacher, tool, model, document, or example.
-5. Search for counterexamples and verify the result.
-6. Extract the reusable skill.
-7. Store it as a replaceable rule.
-8. Use it better next time.
-
-The goal is not an AI that claims to know everything. The goal is an AI that knows how to learn.
-
-## Why This Exists
-
-Today, strong AI systems are everywhere, but most personal agents are still stuck in a simple pattern:
-
-- ask a model
-- get an answer
-- forget the lesson
-- ask again tomorrow
-
-AI-Apprentice turns useful interactions into durable improvement. If the agent learns a translation style from one model, a research habit from another, and a debugging pattern from a third, those lessons become local skills the agent can reuse.
-
-Think of it as an apprentice that watches, practices, writes notes, and slowly becomes more useful to one person.
-
-## Core Idea
+## The Growth Loop
 
 ```mermaid
 flowchart TD
-    A[Task] --> B[Question assumptions]
-    B --> C[Try shortest valid path]
-    C --> D{Good enough?}
-    D -- Yes --> E[Complete]
-    D -- No --> F[Find teacher]
-    F --> G[Challenge and verify]
-    G --> H[Remember replaceable skill]
-    H --> C
+    A[See from many perspectives] --> B[Decompose and invert]
+    B --> C[Recombine and backsolve]
+    C --> D[Predict and act]
+    D --> E[Check reality]
+    E --> F[Update revisable memory]
+    F --> A
 ```
 
-## What Is In This Repo
+In plain language:
 
-This repository is intentionally small right now. It starts with a runnable learning-loop demo and a clear project direction.
+1. Look from the user, executor, system, designer, opposite, attacker, future, and outsider viewpoints.
+2. Decompose the problem.
+3. Reverse the obvious assumptions.
+4. Recombine the useful pieces.
+5. Work backwards from evidence of success.
+6. Make a prediction and act.
+7. Compare the prediction with reality.
+8. Turn the difference into a revisable skill.
 
-```text
-ai_apprentice/
-  apprentice.py      # Learning loop primitives
-examples/
-  translation_loop.py # Demo: learn a reusable translation style
-tests/
-  test_apprentice.py
-docs/
-  concept.md
-  roadmap.md
-```
+This is the key distinction:
+
+> Memory is not a pile of answers. It is a history of predictions corrected by reality.
+
+## Why This Exists
+
+Most agents answer, forget, and repeat. Some systems store every answer and call that learning. Both miss the important part: reality may disagree.
+
+AI-Apprentice keeps the learning process inspectable:
+
+- `PerspectiveEngine` exposes blind spots without pretending to answer them.
+- `ProblemTransformer` records decomposition, inversion, recombination, and backsolved steps.
+- `ExperienceRecord` stores prediction, actual outcome, evidence, lesson, and counterexamples.
+- `MemoryUpdater` changes confidence only when evidence exists and quarantines unreliable skills.
+- `SkillMemory` keeps both the current rule and the experience behind it.
 
 ## Quick Start
 
-Requires Python 3.10+.
+Requires Python 3.10+ and has no external dependencies.
+
+```bash
+python examples/growth_loop.py
+python -m unittest discover -s tests
+```
+
+The original offline translation demo remains available:
 
 ```bash
 python examples/translation_loop.py
 ```
 
-Run tests:
+## Small Example
 
-```bash
-python -m unittest discover -s tests
+```python
+from ai_apprentice import Apprentice, ExperienceRecord, Skill, SkillMemory
+
+memory = SkillMemory([Skill("launch-rule", "launch", "Add more features", confidence=0.6)])
+apprentice = Apprentice(memory, [])
+
+plan = apprentice.plan(
+    "Launch an open-source tool",
+    goal="Help a visitor understand its value in 30 seconds",
+    assumptions=("more features create more trust",),
+)
+
+apprentice.learn_from_reality(
+    "launch-rule",
+    ExperienceRecord(
+        task=plan.frame.original_task,
+        prediction="More features improve understanding",
+        actual_outcome="Testers missed the core value",
+        evidence=("3/3 tester summaries missed it",),
+        matched=False,
+        lesson="Show one verified outcome first",
+    ),
+)
 ```
 
-## Demo
+Without evidence, confidence does not rise. Repeated failure can quarantine a skill so it is no longer reused.
 
-The first demo uses a simple translation task:
+## Project Boundaries
 
-- The apprentice receives a rough English sentence.
-- It tries to produce a natural Chinese version.
-- If it lacks the right style, it asks a teacher.
-- It extracts a reusable style rule.
-- Next time, the same rule is available from memory.
+AI-Apprentice is not an all-knowing AI shell, a chain of models, or an automatic truth machine. The current primitives make the growth loop explicit; adapters and agents can supply the actual reasoning and real-world evidence.
 
-This demo does not call a paid API yet. It is deliberately offline so the learning loop is easy to inspect.
+AfterAI can optionally provide evidence from AI work logs, but neither project depends on the other:
 
-## Roadmap
+> AfterAI sees what happened. AI-Apprentice learns what to change.
 
-- Offline learning-loop prototype
-- Skill memory format
-- Teacher adapters for local models and API models
-- Assumption challenger and counterexample verification
-- Skill review, replacement, rollback, and pruning
-- Shortcut search and personal agent runtime
-- Browser, file, and voice/vision observation modules
+## Philosophy
 
-See [docs/roadmap.md](docs/roadmap.md).
+- Goal over inherited process.
+- Multiple perspectives before commitment.
+- Teachers are sources, not authorities.
+- No evidence, no confidence increase.
+- Failed predictions are learning material, not deleted embarrassment.
+- Every rule must be testable, replaceable, and reversible.
+- Personal learning should remain local and inspectable.
 
-## Project Philosophy
-
-AI-Apprentice is built around a few beliefs:
-
-- Goal over process: identify the real outcome before inheriting a route.
-- Every process is a temporary solution, not a permanent law.
-- Every learned rule must be testable, replaceable, and reversible.
-- Specialist models are teachers, not authorities or final destinations.
-- Verification includes actively searching for counterexamples.
-- Facts, inference, and uncertainty should remain distinguishable.
-- Local memory matters because personal improvement should belong to the user.
-- Small reusable skills beat one giant vague prompt.
-
-> Intelligence is not doing more work. It is shortening the distance to the goal.
-
-AI-Apprentice does not only learn. It questions what it learned and replaces it when a better verified path appears.
+See [docs/concept.md](docs/concept.md) and [docs/roadmap.md](docs/roadmap.md).
 
 ## Contributing
 
-This project is early. Good contributions are practical and concrete:
-
-- a better learning-loop demo
-- a cleaner skill memory format
-- a teacher adapter
-- verification examples
-- documentation that makes the idea easier to understand
-
-See [CONTRIBUTING.md](CONTRIBUTING.md).
-
-## Chinese
+Practical contributions are welcome: real evidence adapters, failure examples, better skill-memory formats, and small demos that prove the loop works. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 中文说明见 [README.zh-CN.md](README.zh-CN.md).
 

@@ -1,83 +1,58 @@
 # Concept
 
-AI-Apprentice is a framework for personal AI systems that learn through use.
+AI-Apprentice is a local-first framework for agents that become more useful through verified experience.
 
 The central claim is simple:
 
-> The next useful personal AI is not the one that knows everything. It is the one that learns from every useful interaction.
+> An answer is not learning. Learning is a prediction changed by reality.
 
-## The Apprentice Pattern
+## One Loop, Three Layers
 
-An apprentice does not start as a master. It improves by repeatedly doing seven things:
+### 1. See
 
-1. Question the assumed route.
-2. Try the work.
-3. Notice the gap.
-4. Ask a teacher or inspect a better example.
-5. Search for counterexamples and verify.
-6. Write down the reusable lesson.
-7. Replace the lesson when a better one appears.
+The apprentice changes perspective before committing to a route. The default lenses are user, executor, system, designer, opposite, attacker, future, and outsider.
 
-AI-Apprentice applies that pattern to AI agents.
+This “God view” does not mean omniscience. It means admitting that every single viewpoint is incomplete and deliberately moving between them.
 
-## Beyond Blind Learning
+### 2. Transform and act
 
-Learning is not enough. A system that permanently remembers every lesson will also permanently remember mistakes.
+The problem is decomposed, its assumptions are inverted, useful pieces are recombined, and actions are backsolved from evidence of the desired outcome. The apprentice then states a prediction before acting.
 
-AI-Apprentice therefore treats every rule as a temporary, testable strategy:
+The transformation objects do not pretend to solve the problem. They make the frame inspectable so a model, tool, or person can supply the actual judgment.
+
+### 3. Compare and remember
+
+An `ExperienceRecord` preserves:
+
+- situation and task
+- prediction
+- actual outcome
+- evidence
+- whether the prediction matched
+- the delta between prediction and reality
+- lesson and applicability
+- counterexamples
+
+`MemoryUpdater` raises confidence after evidenced success, lowers it after evidenced failure, and leaves it unchanged when evidence is missing. A repeatedly failing skill can be quarantined and excluded from reuse.
+
+## Memory Is A Living Model
+
+A useful memory system must preserve both conclusions and corrections. Every skill is therefore versioned, evidence-backed, and reversible.
 
 > No rule is permanent. Every rule must be testable, replaceable, and reversible.
 
-Before following the obvious process, the apprentice should ask:
+Failed predictions are especially valuable. Deleting them creates a system that remembers confidence but forgets why it was wrong.
 
-- What is the real goal?
-- Which assumptions are constraints, and which are merely habits?
-- Is there a shorter path to the same verified outcome?
-- What evidence would prove this lesson wrong?
+## Teachers And Evidence
 
-This is not permission to ignore safety or evidence. It is a method for finding better paths without confusing confidence with truth.
+A teacher can be a model, human, document, example, or tool. A teacher proposes a lesson; reality decides how much confidence it deserves.
 
-## Teacher Sources
-
-A teacher can be:
-
-- a stronger model
-- a specialist model
-- a local document
-- a browser session
-- a human correction
-- a tool result
-- a previous successful task
-
-The teacher is not blindly copied. Its output is compared, challenged, verified, and compressed into a reusable skill.
-
-## Skill Memory
-
-A skill is a small reusable unit of behavior:
-
-- when to use it
-- what it teaches
-- where it came from
-- evidence and known failures
-- confidence and version
-- when it should be reviewed
-
-Skills are replaceable. A newer, better-tested version can supersede an older rule, and a failed skill can be rejected or rolled back.
-
-The first prototype uses an in-memory list. Future versions should store skills as portable local Skill Cards that another agent can import and independently verify.
+Evidence can come from tests, files, exit codes, human review, sensors, or another local tool. AfterAI is one optional source of normalized work evidence, not a required dependency.
 
 ## Facts, Inference, And Uncertainty
 
-The apprentice should preserve the difference between:
-
-- what a source directly established
-- what the apprentice inferred
-- what remains uncertain
-
-A useful agent should not hide uncertainty behind confident language.
+The apprentice should keep separate what evidence established, what it inferred, and what remains unknown. `matched=None` expresses an unknown comparison; it must never increase confidence.
 
 ## Local First
 
-Personal learning should belong to the user. The framework should work locally where possible, with optional adapters for API models and online tools.
-
-The long-term goal is not more answers. It is a personal AI that learns enough to complete useful work while keeping its reasoning, evidence, and learned skills inspectable.
+Personal learning should belong to the user. The prototype has no external dependency and keeps its primitives inspectable. Future persistence and adapters should preserve this property.

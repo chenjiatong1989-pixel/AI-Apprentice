@@ -1,63 +1,59 @@
 # Roadmap
 
-## Phase 1: Clear Prototype
+## Phase 1: Inspectable Growth Loop — complete
 
-- Define the learning-loop concept.
-- Add a runnable offline demo.
-- Add a minimal skill memory.
-- Add optional assumption-challenger and verifier primitives.
-- Document the project philosophy.
-- Keep the project easy to understand for first-time GitHub visitors.
+- Runnable offline apprentice and skill memory.
+- Assumption challenger and counterexample verifier.
+- Eight-viewpoint `PerspectiveEngine`.
+- Decompose, invert, recombine, and backsolve `ProblemTransformer`.
+- Evidence-bearing `ExperienceRecord`.
+- Confidence update and skill quarantine through `MemoryUpdater`.
+- Backwards-compatible translation demo and a new reality-growth demo.
 
-## Phase 2: Real Skill Memory
+## Phase 2: Durable Local Memory
 
-- Store skills as local files.
-- Add metadata: source, confidence, evidence, known failures, version, last used, and review date.
-- Add import/export support through portable Skill Cards.
-- Add skill search and ranking.
-- Allow a newer verified skill to replace an older strategy.
+- Store skills and experiences as local, human-readable files.
+- Add timestamps, applicability boundaries, provenance, review dates, and supersession links.
+- Rebuild memory state from an append-only experience history.
+- Import/export portable Skill Cards.
+- Let users inspect, edit, approve, quarantine, restore, or delete memories.
 
-## Phase 3: Teacher Adapters
+## Phase 3: Evidence Adapters
 
-- Add local model adapter.
-- Add OpenAI-compatible API adapter.
-- Add document teacher adapter.
-- Add browser observation adapter.
-- Add human feedback adapter.
+- Generic JSON evidence interface.
+- Optional AfterAI outcome adapter.
+- Test, file, command, and human-feedback evidence adapters.
+- Preserve raw evidence references without copying secrets into memory.
+- Distinguish verified, failed, partial, and unknown outcomes.
 
-## Phase 4: Verification And Self-Correction
+## Phase 4: Teacher And Reasoning Adapters
 
-- Add compare-and-rank strategies.
-- Search for counterexamples before accepting a skill.
-- Add tests for learned skills.
-- Separate facts, inference, and uncertainty.
-- Add confidence scoring and failure logs.
-- Add rollback and quarantine for bad skills.
-- Periodically review whether an old rule still deserves to exist.
+- Local model adapter.
+- OpenAI-compatible API adapter.
+- Document and example adapters.
+- Compare multiple proposed frames or skills.
+- Keep source claims, inference, and uncertainty separate.
 
-## Phase 5: Shortcut Search And Personal Agent Runtime
+## Phase 5: Skill Evaluation
 
-- Identify the real goal before committing to a process.
-- Separate true constraints from inherited assumptions.
-- Compare direct completion, tool use, teacher use, and skill reuse by cost and verified outcome.
-- Let the apprentice plan multi-step tasks.
-- Let it choose teachers and tools.
-- Let it reuse skills across sessions.
-- Let users inspect, edit, approve, or delete learned skills.
+- Define repeatable tests for learned skills.
+- Rank skills by applicability, evidence quality, recency, and cost.
+- Detect contradictions between memories.
+- Roll back or quarantine harmful rules.
+- Search for counterexamples before reuse, not only before storage.
 
-## Phase 6: Eyes And Ears
+## Phase 6: Personal Agent Runtime
 
-- Browser observation.
-- File observation.
-- Voice input.
-- Vision input.
-- Real-world feedback loops.
+- Plan multi-step tasks from verifiable outcomes.
+- Choose teachers, tools, and existing skills by expected value.
+- Compare prediction with real execution evidence.
+- Feed the resulting experience back into local memory.
 
 ## Phase 7: Skill Exchange
 
 - Share portable Skill Cards between agents.
 - Require each receiving agent to verify imported skills locally.
-- Preserve provenance, evidence, versions, and known failures.
-- Prevent unverified skill propagation.
+- Preserve provenance, evidence, versions, failures, and applicability.
+- Prevent unverified confidence from propagating.
 
-The long-term goal is a personal AI that becomes more useful because it keeps learning from the user's real life and real tasks, questions what it learned, and replaces it when a better path appears.
+The long-term goal is not an agent that accumulates the most memory. It is one whose memory becomes more accurate because reality is allowed to correct it.
